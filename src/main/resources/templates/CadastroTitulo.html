@@ -1,33 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>Cadastro Titulo</title>
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/css/style.css">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
 
+<head>
+<title>Cadastro Titulo</title>
 </head>
-<body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#"> <img alt="algaworks"
-			src=/images/logoalga.png />
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-			<div class="navbar-nav">
-				<a class="nav-item nav-link active" href="#">Home <span
-					class="sr-only">(current)</span></a> <a class="nav-item nav-link"
-					href="#">Features</a> <a class="nav-item nav-link" href="#">Pricing</a>
-				<a class="nav-item nav-link disabled" href="#" tabindex="-1"
-					aria-disabled="true">Disabled</a>
-			</div>
-		</div>
-	</nav>
+
+
+
+<section layout:fragment="conteudo">
+
 	<form class="form-horizontal" method="POST" action="/titulos">
 
 		<div class="alert alert-success "
@@ -37,8 +21,11 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h3>Novo título</h3>
-
+				<div class="clearfix">
+					<h5 class="card-title">Novo Título</h5>
+					<a class="btn btn-link link-card" href="/titulos">Voltar
+						para a pesquisa</a>
+				</div>
 			</div>
 			<div class="card-body">
 				<div class="form-group">
@@ -81,6 +68,7 @@
 
 		</div>
 	</form>
-	<script src="/js/bootstrap.min.js"></script>
-</body>
+</section>
+
+
 </html>

@@ -3,7 +3,7 @@
 	
 }
 
-.form-horizontal{
+.card{
 	margin-left: 15px;
 	margin-right: 15px;
 	margin-top: 15px;
@@ -15,4 +15,14 @@ img{
 .alert{
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+.link-card{
+	float: right;
+	
+}
+
+.card-title{
+	float: left;
+	padding-top: 3px;
 }

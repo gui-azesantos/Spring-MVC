@@ -16,14 +16,14 @@ import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 public class Titulo {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
 	private String descricao;
 
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 
@@ -59,7 +59,8 @@ public class Titulo {
 	public BigDecimal getValor() {
 		return valor;
 	}
-@NumberFormat(pattern = "#,##0.00")
+
+	@NumberFormat(pattern = "#,##0.00")
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
@@ -71,6 +72,7 @@ public class Titulo {
 	public void setStatus(StatusTitulo status) {
 		this.status = status;
 	}
+
 
 	@Override
 	public int hashCode() {

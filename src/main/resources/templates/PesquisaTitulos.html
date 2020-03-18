@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<head>
+
+<title>Pesquisa de Títulos</title>
+
+</head>
+
+
+<section layout:fragment="conteudo">
+
+	<div class="alert alert-success "
+		th:if="${!#strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}">Titulo salvo com sucesso!</span>
+	</div>
+
+	<div class="card">
+		<div class="card-header ">
+			<div class="clearfix">
+				<h5 class="card-title">Pesquisa de Título</h5>
+				<a class="btn btn-link link-card" href="/titulos/novo">Novo
+					título</a>
+			</div>
+		</div>
+		<div class="card-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center">Descrição do produto</th>
+						<th class="text-center">Data de Vencimento</th>
+						<th class="text-center">Valor</th>
+						<th class="text-center">Status</th>
+						<th></th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="titulos :${titulos}">
+						<td class="text-center" th:text="${titulos.codigo}"></td>
+						<td th:text="${titulos.descricao}"></td>
+						<td class="text-center" th:text="${{titulos.dataVencimento}}"></td>
+						<td class="text-center" th:text="|R$ ${{titulos.valor}}|"></td>
+						<td class="text-center" th:text="${titulos.status.descricao}"></td>
+						<td class="text-center"></td>
+					</tr>
+					<tr>
+						<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum
+							título foi encontrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+</html>

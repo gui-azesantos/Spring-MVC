@@ -16,10 +16,10 @@ import com.algaworks.cobranca.repository.Titulos;
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
-	
+
 	@Autowired
 	private Titulos titulos;
-	
+
 	@RequestMapping("/novo")
 	public ModelAndView Novo() {
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
@@ -29,16 +29,25 @@ public class TituloController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView salvar(Titulo titulo) {
-		
+
 		titulos.save(titulo);
 		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject("mensagem", "Titulo salvo com sucesso");
 		return mv;
 	}
-	
+
+	@RequestMapping
+	public ModelAndView pesquisar() {
+		List<Titulo> todosTitulos = titulos.findAll();
+		ModelAndView mv = new ModelAndView("PesquisaTitulos");
+		mv.addObject("titulos", todosTitulos);
+		return mv;
+		
+	}
+
 	@ModelAttribute("TodosStatusTitulo")
-	public List<StatusTitulo> TodosStatusTitulo(){
+	public List<StatusTitulo> TodosStatusTitulo() {
 		return Arrays.asList(StatusTitulo.values());
 	}
-	
+
 }
