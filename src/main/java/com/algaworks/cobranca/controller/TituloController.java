@@ -1,23 +1,44 @@
 package com.algaworks.cobranca.controller;
 
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.algaworks.cobranca.model.StatusTitulo;
 import com.algaworks.cobranca.model.Titulo;
+import com.algaworks.cobranca.repository.Titulos;
 
 @Controller
 @RequestMapping("/titulos")
 public class TituloController {
+	
+	@Autowired
+	private Titulos titulos;
+	
 	@RequestMapping("/novo")
-	public String Novo() {
-		return "CadastroTitulo";
+	public ModelAndView Novo() {
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		mv.addObject("TodosStatusTitulo", StatusTitulo.values());
+		return mv;
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String salvar(Titulo titulo) {
-		// TODO : Salvar no banco de dados
-		System.out.println(">>>>>" + titulo.getDescricao());
-		return "CadastroTitulo";
+	public ModelAndView salvar(Titulo titulo) {
+		
+		titulos.save(titulo);
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
+		mv.addObject("mensagem", "Titulo salvo com sucesso");
+		return mv;
 	}
+	
+	@ModelAttribute("TodosStatusTitulo")
+	public List<StatusTitulo> TodosStatusTitulo(){
+		return Arrays.asList(StatusTitulo.values());
+	}
+	
 }

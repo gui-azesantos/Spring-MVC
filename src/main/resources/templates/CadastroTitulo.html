@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
 <title>Cadastro Titulo</title>
@@ -28,12 +29,16 @@
 		</div>
 	</nav>
 	<form class="form-horizontal" method="POST" action="/titulos">
+
+		<div class="alert alert-success "
+			th:if="${!#strings.isEmpty(mensagem)}">
+			<span th:text="${mensagem}">Titulo salvo com sucesso!</span>
+		</div>
+
 		<div class="card">
 			<div class="card-header">
-				<h3>
-					Novo título
-				</h3>
-			
+				<h3>Novo título</h3>
+
 			</div>
 			<div class="card-body">
 				<div class="form-group">
@@ -61,8 +66,9 @@
 					<label for="status" class="col-sm-2 control-label">Status</label>
 					<div class="col-sm-2">
 						<select class="form-control" name="status">
-							<option value="PENDENTE" >Pendente</option>
-							<option value="RECEBIDO" >Recebido</option>
+							<option th:each="status : ${TodosStatusTitulo}"
+								th:text="${status.descricao}" th:value="${status}"></option>
+
 						</select>
 					</div>
 				</div>

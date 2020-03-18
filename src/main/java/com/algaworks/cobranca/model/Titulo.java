@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
 @Entity
 public class Titulo {
 	
@@ -20,6 +23,7 @@ public class Titulo {
 
 	private String descricao;
 
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataVencimento;
 
@@ -55,7 +59,7 @@ public class Titulo {
 	public BigDecimal getValor() {
 		return valor;
 	}
-
+@NumberFormat(pattern = "#,##0.00")
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
