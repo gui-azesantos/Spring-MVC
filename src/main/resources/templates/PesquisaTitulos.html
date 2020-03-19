@@ -45,8 +45,20 @@
 						<td th:text="${titulos.descricao}"></td>
 						<td class="text-center" th:text="${{titulos.dataVencimento}}"></td>
 						<td class="text-center" th:text="|R$ ${{titulos.valor}}|"></td>
-						<td class="text-center" th:text="${titulos.status.descricao}"></td>
-						<td class="text-center"></td>
+						<td class="text-center"><span class="badge"
+							th:text="${titulos.status.descricao}"
+							th:classappend="${titulos.pendente ? 'badge badge-danger' : 'badge badge-success'}">
+						</span></td>
+						<td class="text-center">
+							<!-- Botão de edição --> 
+							<a class="btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulos.codigo})}">
+							<span class="fas fa-pencil-alt"></span>
+							</a> 
+							<!-- Botão de Excluir -->
+							<a	class="fas fa-trash-alt" th:href="@{/titulos/excluir/{codigo}(codigo=${titulos.codigo})}"></a>
+
+
+						</td>
 					</tr>
 					<tr>
 						<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum
@@ -55,6 +67,8 @@
 				</tbody>
 			</table>
 		</div>
+
+
 	</div>
 </section>
 </html>
