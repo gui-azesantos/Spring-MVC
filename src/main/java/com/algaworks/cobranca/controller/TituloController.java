@@ -3,6 +3,7 @@ package com.algaworks.cobranca.controller;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,11 +43,14 @@ public class TituloController {
 			return CadastroView;
 		}
 
-		titulos.save(titulo);
-
-		attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso");
-
-		return "redirect:titulos/novo";
+		try {
+			titulos.save(titulo);
+			attributes.addFlashAttribute("mensagem", "Titulo salvo com sucesso");
+			return "redirect:titulos/novo";
+		} catch (DataIntegrityViolationException e) {
+			errors.rejectValue("dataVencimento", null, "Formato de data inválido");
+			return CadastroView;
+		}
 	}
 
 	@RequestMapping
@@ -68,6 +73,13 @@ public class TituloController {
 	public String excluir(@PathVariable("codigo") Titulo titulo) {
 		this.titulos.delete(titulo);
 		return "redirect:/titulos";
+	}
+
+	@RequestMapping(value = "/{codigo}/receber", method = RequestMethod.PUT)
+	public @ResponseBody String receber(@PathVariable("codigo") Titulo titulo) {
+		titulo.setStatus(StatusTitulo.RECEBIDO);
+		titulos.save(titulo);
+		return "OK";
 	}
 
 	@ModelAttribute("TodosStatusTitulo")
