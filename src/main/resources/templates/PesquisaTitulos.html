@@ -27,65 +27,74 @@
 			</div>
 		</div>
 		<div class="card-body">
-			
-			<form method="GET" class="form-horizontal"  >
-				<div class= "form-group">
+
+			<form method="GET" class="form-horizontal">
+				<div class="form-group">
 					<div class="col-sm-4">
-						<div class = "input-group">
-						<input class="form-control" placeholder="Qual título você está procurando?"  autofocus="autofocus" name="descricao" ></input>
-							<span class="btn-group">
+						<div class="input-group">
+							<input class="form-control"
+								placeholder="Qual título você está procurando?"
+								autofocus="autofocus" name="descricao"></input> <span
+								class="btn-group">
 								<button type="submit" class="btn btn-primary fas fa-search"></button>
 							</span>
 						</div>
 					</div>
 				</div>
 			</form>
-		
-			<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th class="text-center">#</th>
-						<th class="text-center">Descrição do produto</th>
-						<th class="text-center">Data de Vencimento</th>
-						<th class="text-center">Valor</th>
-						<th class="text-center">Status</th>
-						<th></th>
 
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="titulos :${titulos}">
-						<td class="text-center" th:text="${titulos.codigo}"></td>
-						<td th:text="${titulos.descricao}"></td>
-						<td class="text-center" th:text="${{titulos.dataVencimento}}"></td>
-						<td class="text-center" th:text="|R$ ${{titulos.valor}}|"></td>
-						<td class="text-center" th:attr= "data-role=${titulos.codigo}"><span 
-							th:text="${titulos.status.descricao}"
-							th:classappend="${titulos.pendente ? 'badge badge-danger' : 'badge badge-success'}" >
-						</span></td>
-						<td class="text-center">
-							<!-- Botão de edição --> 
-							<a class="btn btn-link btn-xs" th:href="@{/titulos/{codigo}(codigo=${titulos.codigo})}"  data-toggle="tooltip" data-placement="top" title="Editar">
-							<span class="fas fa-pencil-alt"></span>
-							</a> 
-							<!-- Botão de Excluir -->
-							<a	class="btn btn-link btn-xs"  th:href="@{/titulos/excluir/{codigo}(codigo=${titulos.codigo})}" data-toggle="tooltip" data-placement="top" title="Excluir">
-							<span class="fas fa-trash-alt" ></span></a>
-							<!-- Botão de Rebeber -->
-							<a	class="btn btn-link btn-xs js-atualizar-status" th:attr="data-codigo=${titulos.codigo}" th:if="${titulos.pendente}"  th:href="@{/titulos/{codigo}/receber(codigo =${titulos.codigo})}" data-toggle="tooltip" data-placement="top" title="Receber">
-							<span class="fas fa-check" ></span></a>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th class="text-center">Descrição do produto</th>
+							<th class="text-center">Data de Vencimento</th>
+							<th class="text-center">Valor</th>
+							<th class="text-center">Status</th>
+							<th></th>
 
-						</td>
-					</tr>
-					<tr>
-						<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum
-							título foi encontrado</td>
-					</tr>
-				</tbody>
-			</table>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="titulos :${titulos}">
+							<td class="text-center" th:text="${titulos.codigo}"></td>
+							<td th:text="${titulos.descricao}"></td>
+							<td class="text-center" th:text="${{titulos.dataVencimento}}"></td>
+							<td class="text-center" th:text="|R$ ${{titulos.valor}}|"></td>
+							<td class="text-center" th:attr="data-role=${titulos.codigo}"><span
+								th:text="${titulos.status.descricao}"
+								th:classappend="${titulos.pendente ? 'badge badge-danger' : 'badge badge-success'}">
+							</span></td>
+							<td class="text-center">
+								<!-- Botão de edição --> <a class="btn btn-link btn-xs"
+								th:href="@{/titulos/{codigo}(codigo=${titulos.codigo})}"
+								data-toggle="tooltip" data-placement="top" title="Editar"> <span
+									class="fas fa-pencil-alt"></span>
+							</a> <!-- Botão de Excluir --> <a class="btn btn-link btn-xs"
+								th:href="@{/titulos/excluir/{codigo}(codigo=${titulos.codigo})}"
+								data-toggle="tooltip" data-placement="top" title="Excluir">
+									<span class="fas fa-trash-alt"></span>
+							</a> <!-- Botão de Rebeber --> <a
+								class="btn btn-link btn-xs js-atualizar-status"
+								th:attr="data-codigo=${titulos.codigo}"
+								th:if="${titulos.pendente}"
+								th:href="@{/titulos/{codigo}/receber(codigo =${titulos.codigo})}"
+								data-toggle="tooltip" data-placement="top" title="Receber">
+									<span class="fas fa-check"></span>
+							</a>
+
+							</td>
+						</tr>
+						<tr>
+							<td colspan="6" th:if="${#lists.isEmpty(titulos)}">Nenhum
+								título foi encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
 		</div>
-
-
 	</div>
 </section>
 </html>
